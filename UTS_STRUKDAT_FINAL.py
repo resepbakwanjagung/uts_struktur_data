@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-# Link export CSV dari Google Sheets
+
 DATASET_FILE = "https://docs.google.com/spreadsheets/d/17ru4XAU2NloE9Dfxr2PC1BVcsYkLLT5r7nPSsiOFlvQ/export?format=csv&gid=743838712"
 
 def clear_screen():
@@ -29,7 +29,7 @@ def linear_search(df, column, keyword):
 def binary_search(df, column, keyword):
     try:
         df_sorted = df.sort_values(by=column, key=lambda col: col.astype(str))
-        df_sorted = df_sorted.reset_index(drop=False)  # Jangan hilangkan index asli
+        df_sorted = df_sorted.reset_index(drop=False)  
         low, high = 0, len(df_sorted) - 1
         result = []
 
@@ -77,7 +77,7 @@ def tampilkan_hasil(results, tampilkan_detail=True):
         print(f"\nNama Penulis\t: {row.get('Nama Penulis', '-')}")
 
         if tampilkan_detail:
-            # Ambil kolom abstrak & kesimpulan secara fleksibel
+            
             abstrak_col = [col for col in row.index if 'abstrak' in col.lower()]
             kesimpulan_col = [col for col in row.index if 'kesimpulan' in col.lower()]
 
@@ -122,7 +122,7 @@ def main():
             input("Tekan ENTER untuk lanjut...")
             continue
 
-        # Input keyword berdasarkan kategori
+        
         if kategori == '1':
             keyword = input("Masukkan judul paper: ")
         elif kategori == '2':
@@ -132,11 +132,11 @@ def main():
         else:
             keyword = input("Masukkan kata kunci pencarian: ")
 
-        # Tambahan: tanyakan apakah ingin menampilkan abstrak dan kesimpulan (untuk semua kategori)
+        
         show_detail = input("Apakah ingin menampilkan abstrak dan kesimpulan? (y/n): ").strip().lower()
         tampilkan_detail = (show_detail == 'y')
 
-        # Panggil metode pencarian
+        
         if metode == '1':
             hasil = linear_search(data, kolom_mapping[kategori], keyword)
         elif metode == '2':
@@ -146,7 +146,7 @@ def main():
             input("Tekan ENTER untuk lanjut...")
             continue
 
-        # Tampilkan jumlah hasil pencarian jika bukan berdasarkan judul
+        
         if kategori != '1':
             print(f"\n({keyword}) total : {len(hasil)}\n")
 
